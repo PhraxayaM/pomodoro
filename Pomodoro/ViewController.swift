@@ -141,11 +141,13 @@ class ViewController: UIViewController {
         }
         
         //ACTION: call the reset method
-        
+        resetAll()
     }
 
     //ACTION: add the method to dismiss the view controller
-    
+    func dismissButton(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
     
     // MARK: Time Manipulation
 /*
@@ -178,7 +180,7 @@ class ViewController: UIViewController {
     
     func startTimer() {
         //ACTION: create the timer, selector should be runTimer()
-        
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(runTimer), userInfo: nil, repeats: true)
         /// Here...start timer? need to know how a timer object works. How to start it, etc.
         
         runTimer()
