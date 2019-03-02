@@ -14,6 +14,8 @@ class ViewController: UIViewController {
     //   1. Pomodoro: working on a task for 25 minutes without interruptions
     //   2. Break: 5 minutes
     
+
+    
     enum IntervalType {
         case Pomodoro
         case Break
@@ -49,6 +51,7 @@ class ViewController: UIViewController {
         
         startPauseButton.addTarget(self, action: #selector(startPauseButtonPressed), for: .touchUpInside)
         resetButton.addTarget(self, action: #selector(getter: resetButton), for: .touchUpInside)
+        closeButton.addTarget(self, action: #selector(getter: closeButton), for: .touchUpInside)
         resetAll()
         
         
@@ -70,11 +73,11 @@ class ViewController: UIViewController {
             else {
                 tomatoIcon.alpha = 0.2
             }
-//            tomatoIcon.alpha = currentTomato <= tomatoes ? 1.0 : 0.2
+            tomatoIcon.alpha = currentTomato <= tomatoes ? 1.0 : 0.2
 
-//            tomatoIcon.alpha = currentTomato <= tomatoes ? 1.0 : 0.2
+            tomatoIcon.alpha = currentTomato <= tomatoes ? 1.0 : 0.2
             currentTomato += 1
-//            currentTomato = currentTomato + 1
+            currentTomato = currentTomato + 1
 
         }
     }
@@ -104,16 +107,18 @@ class ViewController: UIViewController {
          // ACTION: Change the button’s title to “Continue”
             startPauseButton.setTitle("Continue", for: .normal)
          // ACTION: Enable the reset button
-            
+            resetButton.isEnabled = true
          // ACTION: Pause the timer, call the method pauseTimer
-            
+            pauseTimer()
          
             
            
         } else {
          // Timer stopped or hasn't started
          // ACTION: Change the button’s title to “Pause”
+            startPauseButton.setTitle("Pause", for: .normal)
          // ACTION: Disable the Reset button
+            resetButton.isEnabled = false
             
            
             
