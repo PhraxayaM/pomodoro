@@ -49,9 +49,9 @@ class ViewController: UIViewController {
 
         //ACTION: Set button actions for startPauseButton, resetButton and closeButton
         
-        startPauseButton.addTarget(self, action: #selector(startPauseButtonPressed), for: .touchUpInside)
-        resetButton.addTarget(self, action: #selector(getter: resetButton), for: .touchUpInside)
-        closeButton.addTarget(self, action: #selector(getter: closeButton), for: .touchUpInside)
+        startPauseButton.addTarget(self, action: #selector(startPauseButtonPressed(_:)), for: .touchUpInside)
+        resetButton.addTarget(self, action: #selector(resetButtonPressed(_:)), for: .touchUpInside)
+        closeButton.addTarget(self, action: #selector(dismissButton(_:)), for: .touchUpInside)
         resetAll()
         
         
@@ -62,34 +62,34 @@ class ViewController: UIViewController {
     // updateTomatoes is supposed to update opacity of UIImage for tomatoImages
 
     
-    func updateTomatoes(to tomatoes: Int) {
-        var currentTomato = 1
-        
-        for tomatoIcon in tomatoImages {
-
-            if currentTomato <= tomatoes {
-                tomatoIcon.alpha = 1.0
-            }
-            else {
-                tomatoIcon.alpha = 0.2
-            }
-            tomatoIcon.alpha = currentTomato <= tomatoes ? 1.0 : 0.2
-
-            tomatoIcon.alpha = currentTomato <= tomatoes ? 1.0 : 0.2
-            currentTomato += 1
-            currentTomato = currentTomato + 1
-
-        }
-    }
-    
 //    func updateTomatoes(to tomatoes: Int) {
 //        var currentTomato = 1
 //
 //        for tomatoIcon in tomatoImages {
+//
+//            if currentTomato <= tomatoes {
+//                tomatoIcon.alpha = 1.0
+//            }
+//            else {
+//                tomatoIcon.alpha = 0.2
+//            }
+//            tomatoIcon.alpha = currentTomato <= tomatoes ? 1.0 : 0.2
+//
 //            tomatoIcon.alpha = currentTomato <= tomatoes ? 1.0 : 0.2
 //            currentTomato += 1
+//            currentTomato = currentTomato + 1
+//
 //        }
 //    }
+    
+    func updateTomatoes(to tomatoes: Int) {
+        var currentTomato = 1
+
+        for tomatoIcon in tomatoImages {
+            tomatoIcon.alpha = currentTomato <= tomatoes ? 1.0 : 0.2
+            currentTomato += 1
+        }
+    }
     func updateTime() {
         let (minutes, seconds) = minutesAndSeconds(from: timeRemaining)
         let min = formatNumber(minutes)
@@ -125,11 +125,11 @@ class ViewController: UIViewController {
             if currentInterval == 0 && timeRemaining == pomodoroDuration {
                 // We are at the start of a cycle
                 // ACTION: begin the cycle of intervals
-                
+                startTimer()
             } else {
                 // We are in the middle of a cycle
                 // ACTION: Resume the timer.
-                
+                startTimer()
             }
         }
     }
@@ -145,7 +145,7 @@ class ViewController: UIViewController {
     }
 
     //ACTION: add the method to dismiss the view controller
-    func dismissButton(_ sender: UIButton) {
+    @objc func dismissButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     
